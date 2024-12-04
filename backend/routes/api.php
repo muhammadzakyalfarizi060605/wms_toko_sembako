@@ -15,8 +15,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// Registrasi dan login
+Route::post('register', [AuthController::class, 'register']);
+Route::post('login', [AuthController::class, 'login']);
+
+// Rute otentikasi untuk mendapatkan data user yang sedang login
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Dashboard per role
+Route::middleware(['role:admin'])->group(function () {
+    Route::get('/admin/dashboard', function () {
+        return view('admin.dashboard');
+    });
 });
 
-Route::post('register', [AuthController::class, 'register']);
+Route::middleware(['role:kasir'])->group(function () {
+    Route::get('/kasir/dashboard', function () {
+        return view('kasir.dashboard');
+    });
+});
+
+Route::middleware(['role:gudang'])->group(function () {
+    Route::get('/gudang/dashboard', function () {
+        return view('gudang.dashboard');
+    });
+});

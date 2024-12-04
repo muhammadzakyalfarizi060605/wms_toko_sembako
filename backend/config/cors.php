@@ -15,20 +15,29 @@ return [
     |
     */
 
-    'paths' => ['api/*', 'sanctum/csrf-cookie'],
+    // config/cors.php
 
-    'allowed_methods' => ['*'],
+    // Tentukan path yang ingin diizinkan CORS-nya
+    'paths' => ['api/*', 'login', 'logout'],  // Sesuaikan dengan path yang diperlukan
 
-    'allowed_origins' => ['*'],
+    // Tentukan metode HTTP yang diizinkan
+    'allowed_methods' => ['*'],  // Mengizinkan semua metode HTTP seperti GET, POST, PUT, DELETE
 
-    'allowed_origins_patterns' => [],
+    // Tentukan asal yang diizinkan (untuk frontend Anda)
+    'allowed_origins' => ['*'],  // Ganti dengan URL frontend Anda
+    'allowed_origins_patterns' => [],  // Bisa dikosongkan jika tidak memerlukan pola spesifik
 
-    'allowed_headers' => ['*'],
+    // Tentukan header yang diizinkan
+    'allowed_headers' => ['*'],  // Mengizinkan semua header
 
-    'exposed_headers' => [],
+    // Tentukan header yang dapat di-expose
+    'exposed_headers' => [],  // Bisa dikosongkan jika tidak ada header khusus yang perlu di-expose
 
-    'max_age' => 0,
+    // Tentukan waktu cache untuk preflight request (dalam detik)
+    'max_age' => 0,  // Anda bisa menetapkan waktu lebih besar jika ingin preflight cache
 
-    'supports_credentials' => false,
+    // Tentukan apakah mendukung kredensial (cookies, session)
+    'supports_credentials' => true,  // Jika menggunakan sesi atau cookies
+
 
 ];

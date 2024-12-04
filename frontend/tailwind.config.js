@@ -1,11 +1,10 @@
-/** @type {import('tailwindcss').Config} */
-
 const flowbite = require("flowbite-react/tailwind");
 
-export default {
+module.exports = {
   content: [
-    // ...
-    flowbite.content(),
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    flowbite.content(), // Menambahkan Flowbite
   ],
   theme: {
     extend: {
@@ -62,5 +61,7 @@ export default {
       ],
     },
   },
-  plugins: [flowbite.plugin()],
+  plugins: [
+    flowbite.plugin(), // Memuat plugin Flowbite
+  ],
 };
