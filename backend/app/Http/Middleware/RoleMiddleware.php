@@ -8,12 +8,11 @@ use Illuminate\Support\Facades\Auth;
 
 class RoleMiddleware
 {
-    public function handle(Request $request, Closure $next, $role)
+    public function handle(Request $request, Closure $next, ...$roles)
     {
-        if (Auth::check() && Auth::user()->role === $role) {
-            return $next($request);
+        if (!in_array(auth()->user()->role, $roles)) {
+            return redirect('/home');  // Atau halaman yang sesuai
         }
-
-        return redirect('/login');
+        return $next($request);
     }
 }

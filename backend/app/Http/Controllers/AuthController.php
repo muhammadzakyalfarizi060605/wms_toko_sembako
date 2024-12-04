@@ -46,26 +46,24 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        // Validasi input
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+        $credentials = $request->only('email', 'password');
 
-        // Cari user berdasarkan email
-        $user = UserModel::where('email', $request->email)->first();
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
 
-        // Verifikasi password dan user ditemukan
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json(['message' => 'Unauthorized'], 401);
+            // Mengirimkan role berdasarkan pengguna yang login
+            return response()->json([
+                'message' => ucfirst($user->role) . ' logged in', // Pesan dinamis berdasarkan role
+                'role' => $user->role, // Menyertakan role dalam respons
+            ]);
         }
 
-        // Kirim data user dan perannya
+        // Jika login gagal
         return response()->json([
-            'message' => 'Login successful',
-            'user' => $user,
-        ]);
+            'message' => 'Invalid credentials', // Pesan error
+        ], 401);
     }
+
 
     // Logout: untuk membersihkan sesi jika ada
     public function logout(Request $request)

@@ -1,12 +1,10 @@
-import React from "react";
-
-function AdminDashboard() {
+function Dashboard() {
   return (
-    <div className="p-6">
-      <h1 className="text-3xl font-bold mb-4">Selamat datang, Admin</h1>
-      <p>Ini adalah halaman admin.</p>
+    <div className="p-8">
+      <h1 className="text-3xl">Welcome, Admin!</h1>
+      {/* Konten dashboard admin */}
     </div>
   );
 }
 
-export default AdminDashboard;
+export default Dashboard;
